@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Navbar from '../../components/common/Navbar';
-import Modal from '../../components/common/Modal';
+import Navbar from '../../components/Navbar';
+import Modal from '../../components/Modal';
 import Column from './Column';
 import { api } from '../../services/api';
 import { Link, navigate } from '../../App';
@@ -45,7 +45,7 @@ export default function BoardPage({ routeParams }) {
       setLoading(true);
       const list = await api.getProjects();
       const proj = list.find(p => p.id === projectId);
-      
+
       if (!proj) {
         // If project ID is not found, fallback to dashboard
         navigate('home.html');
@@ -189,7 +189,7 @@ export default function BoardPage({ routeParams }) {
       const updatedProject = { ...project };
       const fromCol = updatedProject.columnas.find(c => c.id === fromColumnId);
       const toCol = updatedProject.columnas.find(c => c.id === toColumnId);
-      
+
       if (!fromCol || !toCol) return;
 
       const taskIndex = fromCol.tasks.findIndex(t => t.id === taskId);
@@ -237,17 +237,17 @@ export default function BoardPage({ routeParams }) {
           <span className="input-group-text bg-transparent border-0 text-secondary ps-3">
             <i className="bi bi-search"></i>
           </span>
-          <input 
-            type="text" 
-            id="search-tasks-input" 
-            className="form-control bg-transparent border-0 shadow-none ps-1" 
+          <input
+            type="text"
+            id="search-tasks-input"
+            className="form-control bg-transparent border-0 shadow-none ps-1"
             placeholder="Buscar tareas en este tablero..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           {searchQuery && (
-            <button 
-              id="clear-tasks-btn" 
+            <button
+              id="clear-tasks-btn"
               className="btn btn-link text-decoration-none text-muted border-0 pe-3"
               onClick={() => setSearchQuery('')}
             >✕</button>
@@ -261,7 +261,7 @@ export default function BoardPage({ routeParams }) {
           <div className="row">
             <div className="col-12">
               <h1 className="mt-4 fw-semibold">
-                <span 
+                <span
                   id="project-title"
                   ref={titleRef}
                   contentEditable
@@ -277,17 +277,17 @@ export default function BoardPage({ routeParams }) {
                   style={{ outline: 'none' }}
                 >
                   {project?.titulo || 'Título del proyecto'}
-                </span> 
-                <i 
-                  className="bi bi-pencil fs-6 ms-2" 
-                  id="edit-project-title" 
+                </span>
+                <i
+                  className="bi bi-pencil fs-6 ms-2"
+                  id="edit-project-title"
                   role="button"
                   onClick={() => titleRef.current?.focus()}
                 ></i>
               </h1>
-              
+
               <p className="ms-2 text-secondary">
-                <span 
+                <span
                   id="project-description"
                   ref={descRef}
                   contentEditable
@@ -303,26 +303,26 @@ export default function BoardPage({ routeParams }) {
                   style={{ outline: 'none' }}
                 >
                   {projectDescription}
-                </span> 
-                <i 
-                  className="bi bi-pencil fs-6 ms-2" 
-                  id="edit-project-desc" 
+                </span>
+                <i
+                  className="bi bi-pencil fs-6 ms-2"
+                  id="edit-project-desc"
                   role="button"
                   onClick={() => descRef.current?.focus()}
                 ></i>
               </p>
-            </div>  
+            </div>
           </div>
         </div>
 
         {/* COLUMNS CONTAINER */}
         <div className="container-fluid">
-          <div 
-            id="board-container" 
+          <div
+            id="board-container"
             className="d-flex flex-nowrap overflow-auto gap-3 pb-3 align-items-start board-min-height"
           >
             {project?.columnas && project.columnas.map(col => (
-              <Column 
+              <Column
                 key={col.id}
                 column={col}
                 projectId={projectId}
@@ -349,7 +349,7 @@ export default function BoardPage({ routeParams }) {
             <Link href="home.html" className="btn btn-link text-decoration-none text-secondary px-0 position-absolute start-0">
               <i className="bi bi-chevron-left"></i> Volver a mis proyectos
             </Link>
-            <button 
+            <button
               className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded-3 px-4 py-2 btn-dashed"
               onClick={() => setActiveModal('addColumn')}
             >
@@ -373,10 +373,10 @@ export default function BoardPage({ routeParams }) {
         <form onSubmit={handleAddColumn}>
           <div className="mb-3">
             <label htmlFor="new-column-name" className="form-label fw-medium">Nombre de la columna</label>
-            <input 
-              type="text" 
-              className={`form-control ${colNameInvalid ? 'is-invalid' : ''}`} 
-              id="new-column-name" 
+            <input
+              type="text"
+              className={`form-control ${colNameInvalid ? 'is-invalid' : ''}`}
+              id="new-column-name"
               placeholder="Ej: Diseño"
               value={newColName}
               onChange={(e) => {
@@ -386,26 +386,25 @@ export default function BoardPage({ routeParams }) {
             />
             {colNameInvalid && <div className="invalid-feedback">Ingresá un nombre para la columna.</div>}
           </div>
-          
+
           <p className="form-label fw-medium mb-2">Color de la columna</p>
           <div className="d-flex flex-wrap justify-content-center gap-4 mb-3">
             {COLORS.map((color, i) => (
               <React.Fragment key={color}>
-                <input 
-                  type="radio" 
-                  className="btn-check" 
-                  name="new-column-color" 
-                  id={`column-color-${i}`} 
-                  value={color} 
+                <input
+                  type="radio"
+                  className="btn-check"
+                  name="new-column-color"
+                  id={`column-color-${i}`}
+                  value={color}
                   checked={newColColor === color}
                   onChange={() => setNewColColor(color)}
                 />
-                <label 
-                  className={`color-swatch rounded-circle ${color} border ${
-                    newColColor === color ? 'border-primary border-3 shadow' : 'border-secondary'
-                  }`} 
-                  htmlFor={`column-color-${i}`} 
-                  title={color} 
+                <label
+                  className={`color-swatch rounded-circle ${color} border ${newColColor === color ? 'border-primary border-3 shadow' : 'border-secondary'
+                    }`}
+                  htmlFor={`column-color-${i}`}
+                  title={color}
                   aria-label={color}
                 ></label>
               </React.Fragment>
@@ -413,9 +412,9 @@ export default function BoardPage({ routeParams }) {
           </div>
 
           <div className="d-flex justify-content-end gap-2 mt-4">
-            <button 
-              type="button" 
-              className="btn btn-outline-secondary" 
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
               onClick={() => {
                 setActiveModal(null);
                 setNewColName('');
@@ -445,16 +444,16 @@ export default function BoardPage({ routeParams }) {
           ¿Eliminar la columna "{colToDelete?.name}"?
         </p>
         <p className="mb-0 text-secondary">
-          {tasksCountInColToDelete > 0 
-            ? `También se eliminarán sus ${tasksCountInColToDelete} tarea(s).` 
+          {tasksCountInColToDelete > 0
+            ? `También se eliminarán sus ${tasksCountInColToDelete} tarea(s).`
             : 'Esta acción no se puede deshacer.'
           }
         </p>
-        
+
         <div className="d-flex justify-content-end gap-2 mt-4">
-          <button 
-            type="button" 
-            className="btn btn-outline-secondary" 
+          <button
+            type="button"
+            className="btn btn-outline-secondary"
             onClick={() => {
               setActiveModal(null);
               setSelectedColumnId(null);
@@ -462,8 +461,8 @@ export default function BoardPage({ routeParams }) {
           >
             Cancelar
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="btn navbarColor text-white border-secondary"
             onClick={handleDeleteColumn}
           >
