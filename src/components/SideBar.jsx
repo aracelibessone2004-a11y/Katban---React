@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '../../App';
+import { Link } from '../App';
 
 export default function Sidebar({ onNewProjectClick }) {
   return (
@@ -20,9 +20,9 @@ export default function Sidebar({ onNewProjectClick }) {
           </Link>
         </li>
         <li className="nav-item">
-          <Link 
-            className="nav-link d-flex align-items-center gap-2" 
-            href="home.html?new=1" 
+          <Link
+            className="nav-link d-flex align-items-center gap-2"
+            href="home.html?new=1"
             id="sidebar-new-project"
             onClick={(e) => {
               if (onNewProjectClick) {
