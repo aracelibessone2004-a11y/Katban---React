@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../services/api';
-import Navbar from '../../components/common/Navbar';
-import Sidebar from '../../components/common/Sidebar';
-import Modal from '../../components/common/Modal';
+import Navbar from '../../components/Navbar';
+import Sidebar from '../../components/SideBar';
+import Modal from '../../components/Modal';
 import { Link, navigate } from '../../App';
 
 const COLORS = ['colorBrief', 'colorProceso', 'colorRevision', 'colorAprobado'];
@@ -127,14 +127,14 @@ export default function DashboardPage({ routeParams }) {
     try {
       setLoadingProjects(true);
       let list = await api.getProjects();
-      
+
       // Seed demo projects if list is empty
       if (list.length === 0) {
         const demos = getDemoProjects();
         for (const d of demos) {
           // Create project
           const proj = await api.createProject(d.titulo, d.imagen, d.color);
-          
+
           // Seed columns & tasks
           if (d.columnas && proj.columnas) {
             for (const col of d.columnas) {
@@ -203,7 +203,7 @@ export default function DashboardPage({ routeParams }) {
       setNewTitle('');
       setNewImage('');
       setNewColor('colorBrief');
-      
+
       // Navigate to the new project's board
       navigate(`board.html?id=${newProj.id}`);
     } catch (err) {
@@ -375,7 +375,7 @@ export default function DashboardPage({ routeParams }) {
             />
             {titleInvalid && <div className="invalid-feedback">Ingresá un nombre para el proyecto.</div>}
           </div>
-          
+
           <div className="mb-3">
             <label htmlFor="new-project-image" className="form-label fw-medium">URL de la imagen del proyecto</label>
             <input
@@ -390,7 +390,7 @@ export default function DashboardPage({ routeParams }) {
               Colocá el enlace de la imagen o dejalo vacío para usar el color seleccionado abajo.
             </div>
           </div>
-          
+
           <p className="form-label fw-medium mb-2">
             Color de portada (si no ingresás una URL de imagen)
           </p>
@@ -407,9 +407,8 @@ export default function DashboardPage({ routeParams }) {
                   onChange={() => setNewColor(color)}
                 />
                 <label
-                  className={`color-swatch rounded-circle ${color} border ${
-                    newColor === color ? 'border-primary border-3 shadow' : 'border-secondary'
-                  }`}
+                  className={`color-swatch rounded-circle ${color} border ${newColor === color ? 'border-primary border-3 shadow' : 'border-secondary'
+                    }`}
                   htmlFor={`project-color-${i}`}
                   title={color}
                   aria-label={color}
