@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/common/Navbar';
+import Navbar from '../../components/Navbar';
 import { api } from '../../services/api';
 import { Link, navigate } from '../../App';
 
@@ -30,7 +30,7 @@ export default function TaskEditorPage({ routeParams }) {
     try {
       setLoading(true);
       const list = await api.getProjects();
-      
+
       let activeProj = null;
       let activeProjId = projectId;
 
@@ -128,7 +128,7 @@ export default function TaskEditorPage({ routeParams }) {
   const handleEditClick = (task, colId, colName) => {
     setTaskTitle(task.title || '');
     setTaskDueDate(task.dueDate || '');
-    
+
     if (task.labels && task.labels.length > 0) {
       setPieceType(MAP_PIEZA_REVERSE[task.labels[0]] || '');
     } else {
@@ -172,14 +172,14 @@ export default function TaskEditorPage({ routeParams }) {
   }
 
   // Get all tasks flattening columns
-  const allTasks = project?.columnas 
-    ? project.columnas.flatMap(c => 
-        (c.tasks || []).map(t => ({ 
-          ...t, 
-          colName: c.name, 
-          colId: c.id 
-        }))
-      )
+  const allTasks = project?.columnas
+    ? project.columnas.flatMap(c =>
+      (c.tasks || []).map(t => ({
+        ...t,
+        colName: c.name,
+        colId: c.id
+      }))
+    )
     : [];
 
   return (
@@ -189,15 +189,15 @@ export default function TaskEditorPage({ routeParams }) {
 
       <main className="container-fluid my-4">
         <div className="row">
-          
+
           {/* FORMULARIO */}
           <section className="col-md-8 px-4">
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h2 className="mb-0 fw-bold" id="nombre-proyecto-main">
                 {project?.titulo?.toUpperCase() || 'TITULO DEL PROYECTO'}
               </h2>
-              <Link 
-                href={`board.html?id=${project?.id}`} 
+              <Link
+                href={`board.html?id=${project?.id}`}
                 className="btn px-4 py-2 fw-semibold text-white btn-cancelar small rounded-3 shadow-sm"
               >
                 Volver al tablero
@@ -207,11 +207,11 @@ export default function TaskEditorPage({ routeParams }) {
             <form id="form-tarea" onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="titulo-tarea" className="form-label fw-semibold">Título de la tarea</label>
-                <input 
-                  type="text" 
-                  className="form-control bg-light py-2 rounded-3" 
+                <input
+                  type="text"
+                  className="form-control bg-light py-2 rounded-3"
                   id="titulo-tarea"
-                  placeholder="Ej: Diseñar banner para Instagram" 
+                  placeholder="Ej: Diseñar banner para Instagram"
                   required
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
@@ -221,9 +221,9 @@ export default function TaskEditorPage({ routeParams }) {
               <div className="row mb-3">
                 <div class="col-md-6 mb-3 mb-md-0">
                   <label htmlFor="fecha-tarea" className="form-label fw-semibold">Fecha de vencimiento</label>
-                  <input 
-                    type="date" 
-                    className="form-control bg-light py-2 rounded-3" 
+                  <input
+                    type="date"
+                    className="form-control bg-light py-2 rounded-3"
                     id="fecha-tarea"
                     value={taskDueDate}
                     onChange={(e) => setTaskDueDate(e.target.value)}
@@ -235,10 +235,10 @@ export default function TaskEditorPage({ routeParams }) {
                 {/* Tipo Pieza */}
                 <div className="col-md-6 mb-3 mb-md-0">
                   <label htmlFor="tipo-pieza" className="form-label fw-semibold">Tipo de pieza</label>
-                  <select 
-                    className="form-select bg-light py-2 select-placeholder rounded-3" 
+                  <select
+                    className="form-select bg-light py-2 select-placeholder rounded-3"
                     id="tipo-pieza"
-                    required 
+                    required
                     value={pieceType}
                     onChange={(e) => setPieceType(e.target.value)}
                     style={{ color: pieceType ? '#333333' : '#a0a0a0' }}
@@ -255,8 +255,8 @@ export default function TaskEditorPage({ routeParams }) {
                 {/* Estado Tarea */}
                 <div className="col-md-6">
                   <label htmlFor="estado-tarea" className="form-label fw-semibold">Estado ▽</label>
-                  <select 
-                    className="form-select bg-light py-2 select-placeholder rounded-3" 
+                  <select
+                    className="form-select bg-light py-2 select-placeholder rounded-3"
                     id="estado-tarea"
                     value={taskStatus}
                     onChange={(e) => setTaskStatus(e.target.value)}
@@ -272,14 +272,14 @@ export default function TaskEditorPage({ routeParams }) {
               </div>
 
               <div className="d-flex justify-content-center gap-3 mt-4">
-                <button 
+                <button
                   type="button"
                   className="btn px-4 py-2 fw-semibold text-white btn-cancelar small rounded-3 shadow-sm"
                   onClick={handleCancel}
                 >
                   Cancelar
                 </button>
-                <button 
+                <button
                   type="submit"
                   className="btn px-4 py-2 fw-semibold text-white btn-crear small rounded-3 shadow-sm"
                 >
@@ -301,16 +301,16 @@ export default function TaskEditorPage({ routeParams }) {
                 </div>
               ) : (
                 allTasks.map(task => (
-                  <div 
-                    key={task.id} 
+                  <div
+                    key={task.id}
                     className="p-3 bg-body-secondary border rounded-3 shadow-sm d-flex flex-column gap-1 animate-fade-in mb-3"
                   >
                     <div className="d-flex justify-content-between align-items-start">
                       <div>
                         <strong className="text-dark d-block">{task.title}</strong>
                         {task.labels && task.labels.length > 0 && (
-                          <span 
-                            className="badge bg-secondary text-capitalize mt-1" 
+                          <span
+                            className="badge bg-secondary text-capitalize mt-1"
                             style={{ fontSize: '10px' }}
                           >
                             {task.labels[0]}
@@ -318,13 +318,13 @@ export default function TaskEditorPage({ routeParams }) {
                         )}
                       </div>
                       <div className="d-flex gap-1">
-                        <button 
-                          className="btn btn-sm btn-outline-primary border-0 p-1 btn-editar" 
+                        <button
+                          className="btn btn-sm btn-outline-primary border-0 p-1 btn-editar"
                           title="Editar"
                           onClick={() => handleEditClick(task, task.colId, task.colName)}
                         >✏️</button>
-                        <button 
-                          className="btn btn-sm btn-outline-danger border-0 p-1 btn-eliminar" 
+                        <button
+                          className="btn btn-sm btn-outline-danger border-0 p-1 btn-eliminar"
                           title="Eliminar"
                           onClick={() => handleDeleteClick(task.id, task.colId)}
                         >❌</button>
