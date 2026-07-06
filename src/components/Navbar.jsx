@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../../assets/LOGO.png';
-import { Link } from '../../App';
-import { useAuth } from '../../context/AuthContext';
+import logo from '../assets/LOGO.png';
+import { Link } from '../App';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar({ type, projectTitle }) {
   const { logout } = useAuth();
@@ -18,9 +18,9 @@ export default function Navbar({ type, projectTitle }) {
 
           {/* Accesos e Inicio de Sesión */}
           <div className="d-flex align-items-center" id="navbar-auth-links">
-            <Link href="login.html" className="nav-link text-secondary fw-medium px-2" id="btn-login">Iniciar sesión</Link> 
+            <Link href="login.html" className="nav-link text-secondary fw-medium px-2" id="btn-login">Iniciar sesión</Link>
             <div className="vr mx-2 text-muted" style={{ height: '18px', opacity: 0.35 }}></div>
-            <Link href="login.html?register=1" className="nav-link text-secondary fw-medium px-2" id="btn-register">Regístrate</Link> 
+            <Link href="login.html?register=1" className="nav-link text-secondary fw-medium px-2" id="btn-register">Regístrate</Link>
           </div>
         </div>
       </nav>
