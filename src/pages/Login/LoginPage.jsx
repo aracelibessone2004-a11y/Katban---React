@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../services/api';
-import Modal from '../../components/common/Modal';
+import Modal from '../../components/Modal';
 import logo from '../../assets/LOGO.png';
 import { navigate } from '../../App';
 
 export default function LoginPage() {
   const { login } = useAuth();
-  
+
   // Login State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  
+
   // Register State
   const [regNombre, setRegNombre] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [regError, setRegError] = useState('');
   const [regSuccess, setRegSuccess] = useState('');
-  
+
   // Recover State
   const [recupEmail, setRecupEmail] = useState('');
   const [recoverError, setRecoverError] = useState('');
@@ -139,7 +139,7 @@ export default function LoginPage() {
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100" style={{ backgroundColor: 'var(--color-bg-primary)' }}>
       <div className="d-flex flex-column align-items-center w-100 py-4">
-        
+
         {/* Logo del Gatito flotando */}
         <div className="login-logo-container">
           <img src={logo} alt="Logo de la aplicación" />
@@ -149,7 +149,7 @@ export default function LoginPage() {
         <div className="login-card p-4 p-md-5 mx-3">
           <div className="pt-3">
             <h3 className="fw-bold text-center mb-4 mt-2 text-uppercase"
-                style={{ fontSize: '1.25rem', letterSpacing: '1px', color: '#333' }}>
+              style={{ fontSize: '1.25rem', letterSpacing: '1px', color: '#333' }}>
               Iniciar Sesión
             </h3>
 
@@ -157,9 +157,9 @@ export default function LoginPage() {
               {/* Email */}
               <div className="mb-3">
                 <label htmlFor="inputEmail" className="form-label-custom">Email:</label>
-                <input 
-                  type="email" 
-                  id="inputEmail" 
+                <input
+                  type="email"
+                  id="inputEmail"
                   className="form-control form-control-custom"
                   placeholder="mediapila@mediapila.com"
                   value={email}
@@ -170,17 +170,17 @@ export default function LoginPage() {
               {/* Contraseña */}
               <div className="mb-3">
                 <label htmlFor="inputPassword" className="form-label-custom">Contraseña:</label>
-                <input 
-                  type="password" 
-                  id="inputPassword" 
+                <input
+                  type="password"
+                  id="inputPassword"
                   className="form-control form-control-custom"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="text-end mt-2">
-                  <a 
-                    href="#" 
-                    className="login-link text-decoration-none" 
+                  <a
+                    href="#"
+                    className="login-link text-decoration-none"
                     onClick={(e) => { e.preventDefault(); setActiveModal('recover'); }}
                   >
                     Olvidé mi contraseña
@@ -198,9 +198,9 @@ export default function LoginPage() {
 
             {/* Crear Cuenta */}
             <div className="text-center mt-3">
-              <a 
-                href="#" 
-                className="login-link text-decoration-none" 
+              <a
+                href="#"
+                className="login-link text-decoration-none"
                 onClick={(e) => { e.preventDefault(); setActiveModal('register'); }}
               >
                 Crear cuenta
@@ -226,12 +226,12 @@ export default function LoginPage() {
         <form onSubmit={handleRegister}>
           {regError && <div className="alert alert-danger p-2 fs-7 mb-2">{regError}</div>}
           {regSuccess && <div className="alert alert-success p-2 fs-7 mb-2">{regSuccess}</div>}
-          
+
           <div className="mb-3">
             <label htmlFor="regNombre" className="form-label-custom">Nombre:</label>
-            <input 
-              type="text" 
-              id="regNombre" 
+            <input
+              type="text"
+              id="regNombre"
               className="form-control form-control-custom"
               placeholder="Ej: Maria"
               value={regNombre}
@@ -240,9 +240,9 @@ export default function LoginPage() {
           </div>
           <div className="mb-3">
             <label htmlFor="regEmail" className="form-label-custom">Email:</label>
-            <input 
-              type="email" 
-              id="regEmail" 
+            <input
+              type="email"
+              id="regEmail"
               className="form-control form-control-custom"
               placeholder="Ej: mediapila@mediapila.com"
               value={regEmail}
@@ -251,9 +251,9 @@ export default function LoginPage() {
           </div>
           <div className="mb-3">
             <label htmlFor="regPassword" className="form-label-custom">Contraseña:</label>
-            <input 
-              type="password" 
-              id="regPassword" 
+            <input
+              type="password"
+              id="regPassword"
               className="form-control form-control-custom"
               value={regPassword}
               onChange={(e) => setRegPassword(e.target.value)}
@@ -276,15 +276,15 @@ export default function LoginPage() {
         <form onSubmit={handleRecover}>
           {recoverError && <div className="alert alert-danger p-2 fs-7 mb-2">{recoverError}</div>}
           {recoverSuccess && <div className="alert alert-success p-2 fs-7 mb-2" style={{ wordBreak: 'break-all' }} dangerouslySetInnerHTML={{ __html: recoverSuccess }}></div>}
-          
+
           <p className="text-muted text-center small mb-3">
             Ingresa tu correo registrado para recuperar tu contraseña.
           </p>
           <div className="mb-3">
             <label htmlFor="recupEmail" className="form-label-custom">Email:</label>
-            <input 
-              type="email" 
-              id="recupEmail" 
+            <input
+              type="email"
+              id="recupEmail"
               className="form-control form-control-custom"
               placeholder="Ej: mediapila@mediapila.com"
               value={recupEmail}
