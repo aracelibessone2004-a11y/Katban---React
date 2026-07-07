@@ -1,7 +1,27 @@
 # Katban---React 
-Paso a paso como levantar BackEnd
-PASO 1= Abrí una terminal en VS Code o PowerShell y copia la ubicación de la carpeta donde contengas todos los archivos del backend de Katban, ejemplo: "cd C:\Users\TuUsuario\Downloads\katban-backend"
-PASO 2= A eso agregale "node server.js"
-PASO 3= Si te aparece "KATBAN BACKEND INICIADO Servidor corriendo en puerto 5000 http://localhost:5000/api/health" es porque se realizó correctamente.
-PASO 4= Deja esa terminal abierta, abrí otra terminal VS Code o PowerShell y escribí: La ubicación de la carpeta general donde contengas todos los archivos de Katban
-PASO 5= A eso agregale "npm run dev" y ¡Felicidades!, estarás usando Katban exitosamente.
+# Cómo levantar el Backend
+## Requisitos
+Antes de comenzar, asegurate de tener instalado:
+- Node.js (versión LTS recomendada)
+- npm (se instala junto con Node.js)
+## Pasos para ejecutar el Backend
+1. Clonar el repositorio:
+bash
+git clone (https://github.com/aracelibessone2004-a11y/Katban---React)
+2. Ingresar a la carpeta del backend:
+bash
+cd backend
+> Si el backend está dentro de otra carpeta, ingresá primero al proyecto y luego a backend.
+3. Instalar las dependencias:
+bash
+npm install
+4. Iniciar el servidor en modo desarrollo:
+bash
+npm run dev
+O bien, para ejecutarlo en modo normal:
+bash
+npm start
+5. Si todo salió correctamente, el servidor quedará en ejecución y estará listo para recibir las peticiones del frontend.
+## Notas
+- Este proyecto no utiliza un archivo .env, por lo que no es necesario configurar variables de entorno.
+- Si es la primera vez que ejecutás el proyecto, es obligatorio correr npm install para descargar las dependencias.
